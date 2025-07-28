@@ -176,7 +176,7 @@ class NewsSentimentAnalyzer:
                                     formatted_date = parsed_date.strftime("%Y-%m-%d %H:%M")
                                 else:
                                     formatted_date = datetime.now().strftime("%Y-%m-%d %H:%M")
-                            except:
+                            except Exception:
                                 formatted_date = datetime.now().strftime("%Y-%m-%d %H:%M")
                             
                             # Get provider info
