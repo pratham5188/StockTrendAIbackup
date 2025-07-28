@@ -11,7 +11,16 @@ import os
 import logging
 from datetime import datetime, timedelta
 from typing import Dict, List, Optional
-import schedule
+
+# Safe import of schedule with fallback
+try:
+    import schedule
+    SCHEDULE_AVAILABLE = True
+except ImportError as e:
+    print(f"Warning: schedule module not available: {e}")
+    print("Background scheduling will be disabled. Install with: pip install schedule")
+    SCHEDULE_AVAILABLE = False
+    schedule = None
 
 from .stock_discovery import auto_update_stocks
 
@@ -115,6 +124,11 @@ class BackgroundStockService:
 
     def run_scheduled_tasks(self):
         """Run scheduled background tasks"""
+        if not SCHEDULE_AVAILABLE:
+            logger.warning("Schedule module not available - background scheduling disabled")
+            self.add_notification("⚠️ Background scheduling disabled - schedule module not found", "warning")
+            return
+        
         # Schedule stock discovery to run every 24 hours
         schedule.every(24).hours.do(self.check_for_new_stocks)
         
