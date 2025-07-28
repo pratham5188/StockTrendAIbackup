@@ -1,0 +1,202 @@
+{
+  "RELIANCE.NS": {
+    "symbol": "RELIANCE.NS",
+    "company_name": "Reliance Industries Limited",
+    "sector": "Energy",
+    "industry": "Oil & Gas Refining & Marketing",
+    "exchange": "NSE",
+    "discovered_date": "2025-07-28T09:13:50.031303"
+  },
+  "TCS.NS": {
+    "symbol": "TCS.NS",
+    "company_name": "Tata Consultancy Services Limited",
+    "sector": "Technology",
+    "industry": "Information Technology Services",
+    "exchange": "NSE",
+    "discovered_date": "2025-07-28T09:13:50.722730"
+  },
+  "HDFCBANK.NS": {
+    "symbol": "HDFCBANK.NS",
+    "company_name": "HDFC Bank Limited",
+    "sector": "Financial Services",
+    "industry": "Banks - Regional",
+    "exchange": "NSE",
+    "discovered_date": "2025-07-28T09:13:51.408421"
+  },
+  "INFY.NS": {
+    "symbol": "INFY.NS",
+    "company_name": "Infosys Limited",
+    "sector": "Technology",
+    "industry": "Information Technology Services",
+    "exchange": "NSE",
+    "discovered_date": "2025-07-28T09:13:52.088055"
+  },
+  "ICICIBANK.NS": {
+    "symbol": "ICICIBANK.NS",
+    "company_name": "ICICI Bank Limited",
+    "sector": "Financial Services",
+    "industry": "Banks - Regional",
+    "exchange": "NSE",
+    "discovered_date": "2025-07-28T09:13:52.751260"
+  },
+  "KOTAKBANK.NS": {
+    "symbol": "KOTAKBANK.NS",
+    "company_name": "Kotak Mahindra Bank Limited",
+    "sector": "Financial Services",
+    "industry": "Banks - Regional",
+    "exchange": "NSE",
+    "discovered_date": "2025-07-28T09:13:53.452555"
+  },
+  "SBIN.NS": {
+    "symbol": "SBIN.NS",
+    "company_name": "State Bank of India",
+    "sector": "Financial Services",
+    "industry": "Banks - Regional",
+    "exchange": "NSE",
+    "discovered_date": "2025-07-28T09:13:54.176586"
+  },
+  "BHARTIARTL.NS": {
+    "symbol": "BHARTIARTL.NS",
+    "company_name": "Bharti Airtel Limited",
+    "sector": "Communication Services",
+    "industry": "Telecom Services",
+    "exchange": "NSE",
+    "discovered_date": "2025-07-28T09:13:54.836932"
+  },
+  "ITC.NS": {
+    "symbol": "ITC.NS",
+    "company_name": "ITC Limited",
+    "sector": "Consumer Defensive",
+    "industry": "Tobacco",
+    "exchange": "NSE",
+    "discovered_date": "2025-07-28T09:13:55.523340"
+  },
+  "ASIANPAINT.NS": {
+    "symbol": "ASIANPAINT.NS",
+    "company_name": "Asian Paints Limited",
+    "sector": "Basic Materials",
+    "industry": "Specialty Chemicals",
+    "exchange": "NSE",
+    "discovered_date": "2025-07-28T09:13:56.198828"
+  },
+  "MARUTI.NS": {
+    "symbol": "MARUTI.NS",
+    "company_name": "Maruti Suzuki India Limited",
+    "sector": "Consumer Cyclical",
+    "industry": "Auto Manufacturers",
+    "exchange": "NSE",
+    "discovered_date": "2025-07-28T09:13:56.879247"
+  },
+  "BAJFINANCE.NS": {
+    "symbol": "BAJFINANCE.NS",
+    "company_name": "Bajaj Finance Limited",
+    "sector": "Financial Services",
+    "industry": "Credit Services",
+    "exchange": "NSE",
+    "discovered_date": "2025-07-28T09:13:57.585939"
+  },
+  "HCLTECH.NS": {
+    "symbol": "HCLTECH.NS",
+    "company_name": "HCL Technologies Limited",
+    "sector": "Technology",
+    "industry": "Information Technology Services",
+    "exchange": "NSE",
+    "discovered_date": "2025-07-28T09:13:58.274605"
+  },
+  "AXISBANK.NS": {
+    "symbol": "AXISBANK.NS",
+    "company_name": "Axis Bank Limited",
+    "sector": "Financial Services",
+    "industry": "Banks - Regional",
+    "exchange": "NSE",
+    "discovered_date": "2025-07-28T09:13:58.967016"
+  },
+  "LT.NS": {
+    "symbol": "LT.NS",
+    "company_name": "Larsen & Toubro Limited",
+    "sector": "Industrials",
+    "industry": "Engineering & Construction",
+    "exchange": "NSE",
+    "discovered_date": "2025-07-28T09:13:59.641893"
+  },
+  "ULTRACEMCO.NS": {
+    "symbol": "ULTRACEMCO.NS",
+    "company_name": "UltraTech Cement Limited",
+    "sector": "Basic Materials",
+    "industry": "Building Materials",
+    "exchange": "NSE",
+    "discovered_date": "2025-07-28T09:14:00.324907"
+  },
+  "TITAN.NS": {
+    "symbol": "TITAN.NS",
+    "company_name": "Titan Company Limited",
+    "sector": "Consumer Cyclical",
+    "industry": "Luxury Goods",
+    "exchange": "NSE",
+    "discovered_date": "2025-07-28T09:14:01.009244"
+  },
+  "WIPRO.NS": {
+    "symbol": "WIPRO.NS",
+    "company_name": "Wipro Limited",
+    "sector": "Technology",
+    "industry": "Information Technology Services",
+    "exchange": "NSE",
+    "discovered_date": "2025-07-28T09:14:01.699370"
+  },
+  "NESTLEIND.NS": {
+    "symbol": "NESTLEIND.NS",
+    "company_name": "Nestl\u00e9 India Limited",
+    "sector": "Consumer Defensive",
+    "industry": "Packaged Foods",
+    "exchange": "NSE",
+    "discovered_date": "2025-07-28T09:14:02.471940"
+  },
+  "POWERGRID.NS": {
+    "symbol": "POWERGRID.NS",
+    "company_name": "Power Grid Corporation of India Limited",
+    "sector": "Utilities",
+    "industry": "Utilities - Regulated Electric",
+    "exchange": "NSE",
+    "discovered_date": "2025-07-28T09:14:03.140638"
+  },
+  "RELIANCE.BO": {
+    "symbol": "RELIANCE.BO",
+    "company_name": "Reliance Industries Limited",
+    "sector": "Energy",
+    "industry": "Oil & Gas Refining & Marketing",
+    "exchange": "BSE",
+    "discovered_date": "2025-07-28T09:14:03.890928"
+  },
+  "TCS.BO": {
+    "symbol": "TCS.BO",
+    "company_name": "Tata Consultancy Services Limited",
+    "sector": "Technology",
+    "industry": "Information Technology Services",
+    "exchange": "BSE",
+    "discovered_date": "2025-07-28T09:14:04.614317"
+  },
+  "HDFCBANK.BO": {
+    "symbol": "HDFCBANK.BO",
+    "company_name": "HDFC Bank Limited",
+    "sector": "Financial Services",
+    "industry": "Banks - Regional",
+    "exchange": "BSE",
+    "discovered_date": "2025-07-28T09:14:05.361236"
+  },
+  "INFY.BO": {
+    "symbol": "INFY.BO",
+    "company_name": "Infosys Limited",
+    "sector": "Technology",
+    "industry": "Information Technology Services",
+    "exchange": "BSE",
+    "discovered_date": "2025-07-28T09:14:06.127387"
+  },
+  "ICICIBANK.BO": {
+    "symbol": "ICICIBANK.BO",
+    "company_name": "ICICI Bank Limited",
+    "sector": "Financial Services",
+    "industry": "Banks - Regional",
+    "exchange": "BSE",
+    "discovered_date": "2025-07-28T09:14:06.872190"
+  }
+}

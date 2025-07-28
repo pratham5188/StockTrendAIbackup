@@ -324,7 +324,7 @@ class AdvancedAnalytics:
     
     def seasonality_analysis(self, stock_data):
         """Analyze seasonal patterns in stock performance"""
-        if len(stock_data) < 252:  # Need at least 1 year of data
+        if len(stock_data) < 90:  # Need at least 3 months of data for meaningful analysis
             return None
         
         # Add time-based features
@@ -338,16 +338,22 @@ class AdvancedAnalytics:
         
         # Monthly patterns
         monthly_returns = data.groupby('Month')['Returns'].agg(['mean', 'std', 'count'])
-        monthly_returns.index = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-                               'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+        month_names = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+                      'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+        # Map only existing months
+        monthly_returns.index = [month_names[i-1] for i in monthly_returns.index]
         
         # Day of week patterns
         dow_returns = data.groupby('DayOfWeek')['Returns'].agg(['mean', 'std', 'count'])
-        dow_returns.index = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+        day_names = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+        # Map only existing days of week
+        dow_returns.index = [day_names[i] for i in dow_returns.index]
         
         # Quarterly patterns
         quarterly_returns = data.groupby('Quarter')['Returns'].agg(['mean', 'std', 'count'])
-        quarterly_returns.index = ['Q1', 'Q2', 'Q3', 'Q4']
+        quarter_names = ['Q1', 'Q2', 'Q3', 'Q4']
+        # Map only existing quarters
+        quarterly_returns.index = [quarter_names[i-1] for i in quarterly_returns.index]
         
         return {
             'monthly_patterns': monthly_returns,
