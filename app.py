@@ -26,6 +26,7 @@ from utils.advanced_analytics import AdvancedAnalytics
 from utils.news_sentiment import NewsSentimentAnalyzer
 from utils.ui_components import UIComponents
 from utils.model_info import ModelInfo
+from utils.background_service import get_background_service, get_service_status, get_notifications, mark_notifications_read, trigger_stock_discovery
 from styles.custom_css import get_custom_css
 from config.settings import INDIAN_STOCKS, INDIAN_INDICES, DEFAULT_STOCK
 
@@ -199,13 +200,35 @@ class StockTrendAI:
         self.model_info = ModelInfo()
     
     def render_header(self):
-        """Render the main header with neon glow effect"""
+        """Render the main header with neon glow effect and notifications"""
         st.markdown("""
         <div class="neon-header">
             <h1 class="main-title">🚀 StockTrendAI </h1>
             <p class="subtitle">AI-Powered Indian Stock Market Predictor with 7 Advanced ML Models</p>
         </div>
         """, unsafe_allow_html=True)
+        
+        # Show background service notifications
+        try:
+            notifications = get_notifications()
+            if notifications:
+                for notification in notifications[:3]:  # Show max 3 recent notifications
+                    if notification['type'] == 'success':
+                        st.success(notification['message'])
+                    elif notification['type'] == 'warning':
+                        st.warning(notification['message'])
+                    elif notification['type'] == 'error':
+                        st.error(notification['message'])
+                    else:
+                        st.info(notification['message'])
+                
+                # Mark notifications as read after showing them
+                if st.button("✅ Mark All Read", key="mark_notifications_read"):
+                    mark_notifications_read()
+                    st.rerun()
+        except Exception as e:
+            # Silently handle any notification errors
+            pass
     
     def render_sidebar(self):
         """Render the sidebar with collapsible control panel"""
@@ -3073,6 +3096,28 @@ class StockTrendAI:
                 if st.button("🧹 Clear Cache"):
                     st.cache_data.clear()
                     st.success("Cache cleared successfully!")
+                
+                st.markdown("### 🚀 Auto Stock Discovery")
+                
+                # Background service status
+                try:
+                    service_status = get_service_status()
+                    status_color = "🟢" if service_status['is_running'] else "🔴"
+                    st.info(f"{status_color} Service Status: {'Running' if service_status['is_running'] else 'Stopped'}")
+                    
+                    if service_status['last_update']:
+                        st.info(f"📅 Last Update: {service_status['last_update'][:19].replace('T', ' ')}")
+                    
+                    st.info(f"📨 Unread Notifications: {service_status['unread_notifications']}")
+                    
+                    # Manual discovery trigger
+                    if st.button("🔍 Manual Discovery"):
+                        with st.spinner("Searching for new stocks..."):
+                            result = trigger_stock_discovery()
+                            st.success(result)
+                            
+                except Exception as e:
+                    st.warning(f"⚠️ Auto-discovery service not available: {str(e)}")
                 st.markdown("### 📝 App Information")
                 st.markdown("""
                 **Version:** 2.0 - Advanced AI Edition
@@ -3160,16 +3205,67 @@ if __name__ == "__main__":
             st.error("❌ Unable to load stock data. Please try a different stock or time period.")
             st.stop()
         
-        # Create tabs for different sections
-        prediction_tab, portfolio_tab, analytics_tab, news_tab, tools_tab = st.tabs([
+        # Initialize session state for tab persistence
+        if 'active_tab' not in st.session_state:
+            st.session_state.active_tab = 0  # Default to first tab (AI Predictions)
+
+        # Create tab selection using radio buttons for persistence
+        tab_names = [
             "🤖 AI Predictions",
-            "💼 Portfolio Tracker", 
+            "💼 Portfolio Tracker",
             "📊 Advanced Analytics",
             "📰 News & Sentiment",
             "⚙️ Advanced Tools"
-        ])
+        ]
+
+        st.markdown("""
+        <style>
+        .stRadio > div {
+            flex-direction: row;
+            gap: 10px;
+        }
+        .stRadio > div > label {
+            background-color: #1f1f1f;
+            border: 1px solid #00ff88;
+            border-radius: 10px;
+            padding: 8px 15px;
+            margin: 2px;
+            transition: all 0.3s ease;
+            color: #ffffff;
+            font-weight: 500;
+        }
+        .stRadio > div > label:hover {
+            background-color: #00ff88;
+            color: #000000;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 255, 136, 0.3);
+        }
+        .stRadio > div > label[data-checked="true"] {
+            background-color: #00ff88;
+            color: #000000;
+            box-shadow: 0 4px 12px rgba(0, 255, 136, 0.5);
+        }
+        </style>
+        """, unsafe_allow_html=True)
+
+        st.markdown("### 🧭 Navigation")
+        selected_tab_name = st.radio(
+            "Select section:",
+            tab_names,
+            index=st.session_state.active_tab,
+            horizontal=True,
+            key="main_tab_selector",
+            label_visibility="collapsed"
+        )
+
+        # Update active tab index
+        st.session_state.active_tab = tab_names.index(selected_tab_name)
+
+        # Add separator
+        st.markdown("---")
         
-        with prediction_tab:
+        # Render content based on selected tab
+        if selected_tab_name == "🤖 AI Predictions":
             try:
                 # Validate data quality
                 if stock_data is None or stock_data.empty:
@@ -3230,7 +3326,7 @@ if __name__ == "__main__":
                 st.info("Please refresh the page and try again.")
             st.warning("⚠️ This is AI-based Predictions, so invest at your own risk.")
         
-        with portfolio_tab:
+        elif selected_tab_name == "💼 Portfolio Tracker":
             try:
                 st.info("🟢 You are in the Portfolio Tracker tab.")
                 app.portfolio_tracker.render_portfolio_tab()
@@ -3238,7 +3334,7 @@ if __name__ == "__main__":
                 st.error(f"❌ Error in portfolio tab: {str(e)}")
             st.warning("⚠️ This is AI-based Predictions, so invest at your own risk.")
         
-        with analytics_tab:
+        elif selected_tab_name == "📊 Advanced Analytics":
             try:
                 st.info("🟢 You are in the Advanced Analytics tab.")
                 if stock_data is not None and not stock_data.empty:
@@ -3257,7 +3353,7 @@ if __name__ == "__main__":
                 st.expander("🔧 Debug Info").write(f"Error details: {type(e).__name__}: {str(e)}")
             st.warning("⚠️ This is AI-based Predictions, so invest at your own risk.")
         
-        with news_tab:
+        elif selected_tab_name == "📰 News & Sentiment":
             try:
                 st.info("🟢 You are in the News & Sentiment tab.")
                 # Validate symbol before news analysis
@@ -3276,7 +3372,7 @@ if __name__ == "__main__":
                 st.markdown("- Try refreshing the page in a few moments")
             st.warning("⚠️ This is AI-based Predictions, so invest at your own risk.")
         
-        with tools_tab:
+        elif selected_tab_name == "⚙️ Advanced Tools":
             try:
                 st.info("🟢 You are in the Advanced Tools tab.")
                 app.render_advanced_tools_tab()

@@ -306,6 +306,10 @@ class AdvancedAnalytics:
         
         mfi = 100 - (100 / (1 + positive_flow / negative_flow))
         
+        # Calculate volume volatility
+        volume_returns = volume.pct_change().dropna()
+        volume_volatility = volume_returns.std()
+
         return {
             'volume_ma_20': volume_ma_20,
             'volume_ma_50': volume_ma_50,
@@ -314,7 +318,8 @@ class AdvancedAnalytics:
             'vpt': vpt,
             'mfi': mfi,
             'avg_volume': volume.mean(),
-            'volume_trend': 'increasing' if volume_ma_20.iloc[-1] > volume_ma_50.iloc[-1] else 'decreasing'
+            'volume_trend': 'increasing' if volume_ma_20.iloc[-1] > volume_ma_50.iloc[-1] else 'decreasing',
+            'volatility': volume_volatility  # Added volume volatility
         }
     
     def seasonality_analysis(self, stock_data):

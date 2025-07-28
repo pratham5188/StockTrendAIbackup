@@ -1,0 +1,11 @@
+{
+  "notifications": [
+    {
+      "message": "\ud83d\ude80 Background stock discovery service started",
+      "type": "info",
+      "timestamp": "2025-07-28T08:16:54.649764",
+      "read": false
+    }
+  ],
+  "last_saved": "2025-07-28T08:16:54.649772"
+}
