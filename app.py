@@ -200,35 +200,13 @@ class StockTrendAI:
         self.model_info = ModelInfo()
     
     def render_header(self):
-        """Render the main header with neon glow effect and notifications"""
+        """Render the main header with neon glow effect"""
         st.markdown("""
         <div class="neon-header">
             <h1 class="main-title">🚀 StockTrendAI </h1>
             <p class="subtitle">AI-Powered Indian Stock Market Predictor with 7 Advanced ML Models</p>
         </div>
         """, unsafe_allow_html=True)
-        
-        # Show background service notifications
-        try:
-            notifications = get_notifications()
-            if notifications:
-                for notification in notifications[:3]:  # Show max 3 recent notifications
-                    if notification['type'] == 'success':
-                        st.success(notification['message'])
-                    elif notification['type'] == 'warning':
-                        st.warning(notification['message'])
-                    elif notification['type'] == 'error':
-                        st.error(notification['message'])
-                    else:
-                        st.info(notification['message'])
-                
-                # Mark notifications as read after showing them
-                if st.button("✅ Mark All Read", key="mark_notifications_read"):
-                    mark_notifications_read()
-                    st.rerun()
-        except Exception as e:
-            # Silently handle any notification errors
-            pass
     
     def render_sidebar(self):
         """Render the sidebar with collapsible control panel"""
@@ -3308,7 +3286,6 @@ if __name__ == "__main__":
         </style>
         """, unsafe_allow_html=True)
 
-        st.markdown("### 🧭 Navigation")
         selected_tab_name = st.radio(
             "Select section:",
             tab_names,
