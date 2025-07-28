@@ -46,6 +46,8 @@ class PortfolioTracker:
             'profit_loss_percent': 0.0
         }
         
+        if 'holdings' not in st.session_state[self.portfolio_key]:
+            st.session_state[self.portfolio_key]['holdings'] = []
         st.session_state[self.portfolio_key]['holdings'].append(holding)
         
         # Add transaction record
@@ -58,14 +60,16 @@ class PortfolioTracker:
             'total_value': float(quantity) * float(purchase_price)
         }
         
+        if 'transactions' not in st.session_state[self.portfolio_key]:
+            st.session_state[self.portfolio_key]['transactions'] = []
         st.session_state[self.portfolio_key]['transactions'].append(transaction)
         self.update_portfolio_summary()
     
     def remove_holding(self, index):
         """Remove a holding from the portfolio"""
         if self.portfolio_key in st.session_state:
-            holdings = st.session_state[self.portfolio_key]['holdings']
-            if 0 <= index < len(holdings):
+            holdings = st.session_state[self.portfolio_key].get('holdings')
+            if holdings is not None and 0 <= index < len(holdings):
                 removed_holding = holdings.pop(index)
                 
                 # Add sell transaction
@@ -78,6 +82,8 @@ class PortfolioTracker:
                     'total_value': removed_holding['quantity'] * removed_holding['current_price']
                 }
                 
+                if 'transactions' not in st.session_state[self.portfolio_key]:
+                    st.session_state[self.portfolio_key]['transactions'] = []
                 st.session_state[self.portfolio_key]['transactions'].append(transaction)
                 self.update_portfolio_summary()
     
@@ -95,7 +101,7 @@ class PortfolioTracker:
         if self.portfolio_key not in st.session_state:
             return
         
-        holdings = st.session_state[self.portfolio_key]['holdings']
+        holdings = st.session_state[self.portfolio_key].get('holdings', [])
         
         for holding in holdings:
             try:
@@ -127,7 +133,7 @@ class PortfolioTracker:
         if self.portfolio_key not in st.session_state:
             return
         
-        holdings = st.session_state[self.portfolio_key]['holdings']
+        holdings = st.session_state[self.portfolio_key].get('holdings', [])
         
         total_invested = sum(h['quantity'] * h['purchase_price'] for h in holdings)
         current_value = sum(h['quantity'] * h['current_price'] for h in holdings)

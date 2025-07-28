@@ -33,6 +33,9 @@ class TransformerPredictor:
         
     def prepare_transformer_data(self, data):
         """Prepare data for transformer model"""
+        if data is None or data.empty:
+            raise ValueError("Input data is None or empty")
+            
         from sklearn.preprocessing import MinMaxScaler
         
         # Select features for transformer
@@ -61,7 +64,7 @@ class TransformerPredictor:
         
         # Select available features
         available_features = [col for col in feature_columns if col in data_copy.columns]
-        feature_data = data_copy[available_features].fillna(method='ffill').fillna(method='bfill')
+        feature_data = data_copy[available_features].ffill().bfill()
         
         # Scale features
         if self.feature_scaler is None:
@@ -152,6 +155,10 @@ class TransformerPredictor:
                 print("Keras not available for Transformer training")
                 return None
             
+            if data is None or data.empty:
+                print("No data provided for Transformer training")
+                return None
+            
             # Prepare data
             features, prices, feature_names = self.prepare_transformer_data(data.copy())
             
@@ -209,6 +216,12 @@ class TransformerPredictor:
     
     def attention_based_prediction(self, data):
         """Attention-based prediction without full transformer (fallback)"""
+        if data is None or data.empty:
+            raise ValueError("Input data is None or empty")
+            
+        if 'Close' not in data.columns:
+            raise ValueError("Close price column not found in data")
+            
         current_price = data['Close'].iloc[-1]
         
         # Calculate attention weights for different time periods
@@ -286,6 +299,9 @@ class TransformerPredictor:
     def predict(self, data):
         """Make transformer prediction"""
         try:
+            if data is None or data.empty:
+                raise ValueError("Input data is None or empty")
+                
             if not self.keras_available:
                 return self.attention_based_prediction(data)
             
