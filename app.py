@@ -1560,7 +1560,7 @@ class StockTrendAI:
         self.render_header()
         
         # Main navigation tabs
-        tab1, tab2, tab3, tab4, tab5 = st.tabs([
+        predictions_tab, portfolio_tab, analytics_tab, news_tab, tools_tab = st.tabs([
             "🎯 Predictions", 
             "📊 Portfolio", 
             "📈 Analytics", 
@@ -1568,7 +1568,7 @@ class StockTrendAI:
             "⚙️ Advanced Tools"
         ])
         
-        with tab1:
+        with predictions_tab:
             st.info("🟢 You are in the AI Predictions tab.")
             
             # --- Market Real-Time Status, Open/Close, and Date (Horizontal Box) ---
@@ -1762,7 +1762,7 @@ class StockTrendAI:
                 st.info("Please refresh the page and try again.")
             st.warning("⚠️ This is AI-based Predictions, so invest at your own risk.")
         
-        with tab2:
+        with portfolio_tab:
             st.info("🟢 You are in the Portfolio Tracker tab.")
             try:
                 st.markdown("## 📊 Portfolio Management")
@@ -1833,7 +1833,7 @@ class StockTrendAI:
                 st.error(f"❌ Error in portfolio tab: {str(e)}")
             st.warning("⚠️ This is AI-based Predictions, so invest at your own risk.")
         
-        with tab3:
+        with analytics_tab:
             st.info("🟢 You are in the Advanced Analytics tab.")
             try:
                 st.markdown("## 📈 Advanced Analytics")
@@ -1865,7 +1865,7 @@ class StockTrendAI:
                 st.expander("🔧 Debug Info").write(f"Error details: {type(e).__name__}: {str(e)}")
             st.warning("⚠️ This is AI-based Predictions, so invest at your own risk.")
         
-        with tab4:
+        with news_tab:
             st.info("🟢 You are in the News & Sentiment tab.")
             try:
                 # Validate symbol before news analysis
@@ -1884,15 +1884,15 @@ class StockTrendAI:
                 st.markdown("- Try refreshing the page in a few moments")
             st.warning("⚠️ This is AI-based Predictions, so invest at your own risk.")
         
-        with tab5:
+        with tools_tab:
             st.info("🟢 You are in the Advanced Tools tab.")
             try:
                 st.markdown("## ⚙️ Advanced Tools")
                 
                 # Add tabs for different sections
-                tool_tab1, tool_tab2, tool_tab3 = st.tabs(["🤖 AI Models Info", "📊 Analysis Tools", "🔧 Utilities"])
+                models_tab, analysis_tools_tab, utilities_tab = st.tabs(["🤖 AI Models Info", "📊 Analysis Tools", "🔧 Utilities"])
                 
-                with tool_tab1:
+                with models_tab:
                     st.markdown("## 🤖 AI Models Information")
                     
                     # Model comparison table
@@ -1911,7 +1911,7 @@ class StockTrendAI:
                     with col2:
                         self.model_info.render_transformer_explanation()
                 
-                with tool_tab2:
+                with analysis_tools_tab:
                     # Advanced features
                     tool_col1, tool_col2 = st.columns(2)
                 
@@ -1974,7 +1974,7 @@ class StockTrendAI:
                     st.markdown("### 📈 Model Performance")
                     self.render_model_performance_metrics()
                 
-                with tool_tab3:
+                with utilities_tab:
                     st.markdown("## 🔧 Utilities")
                     
                     util_col1, util_col2 = st.columns(2)
@@ -3066,8 +3066,8 @@ class StockTrendAI:
 
     def render_advanced_tools_tab(self):
         st.markdown("## ⚙️ Advanced Tools")
-        tool_tab1, tool_tab2, tool_tab3 = st.tabs(["🤖 AI Models Info", "📊 Analysis Tools", "🔧 Utilities"])
-        with tool_tab1:
+        models_tab, analysis_tools_tab, utilities_tab = st.tabs(["🤖 AI Models Info", "📊 Analysis Tools", "🔧 Utilities"])
+        with models_tab:
             st.markdown("## 🤖 AI Models Information")
             self.model_info.render_model_comparison()
             self.model_info.render_model_recommendations()
@@ -3077,7 +3077,7 @@ class StockTrendAI:
                 self.model_info.render_ensemble_explanation()
             with col2:
                 self.model_info.render_transformer_explanation()
-        with tool_tab2:
+        with analysis_tools_tab:
             tool_col1, tool_col2 = st.columns(2)
             with tool_col1:
                 st.markdown("### 🔄 Data Export")
@@ -3106,7 +3106,7 @@ class StockTrendAI:
                     self.run_simple_backtest()
                 st.markdown("### 📈 Model Performance")
                 self.render_model_performance_metrics()
-        with tool_tab3:
+        with utilities_tab:
             st.markdown("## 🔧 Utilities")
             util_col1, util_col2 = st.columns(2)
             with util_col1:
