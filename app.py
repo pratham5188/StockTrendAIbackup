@@ -3283,6 +3283,14 @@ if __name__ == "__main__":
             color: #000000;
             box-shadow: 0 4px 12px rgba(0, 255, 136, 0.5);
         }
+        /* Hide radio button circles */
+        .stRadio input[type="radio"] {
+            display: none !important;
+        }
+        /* Hide radio button container when not needed */
+        .stRadio > div > label > div {
+            display: none !important;
+        }
         </style>
         """, unsafe_allow_html=True)
 
