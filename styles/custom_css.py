@@ -840,20 +840,53 @@ def get_custom_css():
         border-radius: 8px;
         color: #ffffff !important;
         font-weight: 600;
+        font-size: 14px !important;
         border: 1px solid rgba(0,255,136,0.3);
         transition: all 0.3s ease;
+        text-shadow: 1px 1px 2px rgba(0,0,0,0.8) !important;
     }
     
     .stTabs [aria-selected="true"] {
         background: linear-gradient(45deg, rgba(0,255,136,0.3), rgba(0,136,255,0.3)) !important;
         color: #ffffff !important;
+        font-size: 14px !important;
+        font-weight: 700 !important;
         border: 1px solid rgba(0,255,136,0.6);
         box-shadow: 0 0 15px rgba(0,255,136,0.3);
+        text-shadow: 1px 1px 3px rgba(0,0,0,0.9) !important;
     }
     
     .stTabs [data-baseweb="tab"]:hover {
         background: rgba(0,255,136,0.2) !important;
         color: #ffffff !important;
+        font-size: 14px !important;
+        text-shadow: 1px 1px 2px rgba(0,0,0,0.8) !important;
+    }
+
+    /* Ensure tab text is visible */
+    .stTabs [data-baseweb="tab"] span,
+    .stTabs [data-baseweb="tab"] div,
+    .stTabs [data-baseweb="tab"] p {
+        color: #ffffff !important;
+        font-size: 14px !important;
+        font-weight: 600 !important;
+        text-shadow: 1px 1px 2px rgba(0,0,0,0.8) !important;
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+    }
+
+    /* Active tab text visibility */
+    .stTabs [aria-selected="true"] span,
+    .stTabs [aria-selected="true"] div,
+    .stTabs [aria-selected="true"] p {
+        color: #ffffff !important;
+        font-size: 14px !important;
+        font-weight: 700 !important;
+        text-shadow: 1px 1px 3px rgba(0,0,0,0.9) !important;
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
     }
     
     /* Fix all Streamlit text colors */
