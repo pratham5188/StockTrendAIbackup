@@ -1559,36 +1559,38 @@ class StockTrendAI:
         # Render header
         self.render_header()
         
-        # Main navigation tabs with explicit names
-        tab_names = [
-            "🎯 Predictions", 
-            "📊 Portfolio", 
-            "📈 Analytics", 
-            "📰 News & Sentiment", 
-            "⚙️ Advanced Tools"
-        ]
+        # Custom Tab System with Guaranteed Visible Names
+        st.markdown("## 📋 Navigation Menu")
         
-        st.markdown("### Navigation Tabs:")
-        st.write("Tab names should be:", tab_names)
+        # Initialize session state for active tab
+        if 'active_tab' not in st.session_state:
+            st.session_state.active_tab = 'predictions'
         
-        # Alternative tab display using buttons (fallback if tabs don't show names)
-        st.markdown("---")
+        # Create custom tab buttons with clear names
         col1, col2, col3, col4, col5 = st.columns(5)
+        
         with col1:
-            st.button("🎯 Predictions", key="tab_pred_btn", help="Predictions Tab")
+            if st.button("🎯 **PREDICTIONS**", key="pred_tab", use_container_width=True):
+                st.session_state.active_tab = 'predictions'
         with col2:
-            st.button("📊 Portfolio", key="tab_port_btn", help="Portfolio Tab") 
+            if st.button("📊 **PORTFOLIO**", key="port_tab", use_container_width=True):
+                st.session_state.active_tab = 'portfolio'
         with col3:
-            st.button("📈 Analytics", key="tab_anal_btn", help="Analytics Tab")
+            if st.button("📈 **ANALYTICS**", key="anal_tab", use_container_width=True):
+                st.session_state.active_tab = 'analytics'
         with col4:
-            st.button("📰 News & Sentiment", key="tab_news_btn", help="News Tab")
+            if st.button("📰 **NEWS & SENTIMENT**", key="news_tab", use_container_width=True):
+                st.session_state.active_tab = 'news'
         with col5:
-            st.button("⚙️ Advanced Tools", key="tab_tools_btn", help="Tools Tab")
+            if st.button("⚙️ **ADVANCED TOOLS**", key="tools_tab", use_container_width=True):
+                st.session_state.active_tab = 'tools'
+        
+        # Show current active tab
+        st.markdown(f"### 🎯 Currently Viewing: **{st.session_state.active_tab.upper()}**")
         st.markdown("---")
         
-        predictions_tab, portfolio_tab, analytics_tab, news_tab, tools_tab = st.tabs(tab_names)
-        
-        with predictions_tab:
+        # Display content based on active tab
+        if st.session_state.active_tab == 'predictions':
             st.info("🟢 You are in the AI Predictions tab.")
             
             # --- Market Real-Time Status, Open/Close, and Date (Horizontal Box) ---
@@ -1782,7 +1784,7 @@ class StockTrendAI:
                 st.info("Please refresh the page and try again.")
             st.warning("⚠️ This is AI-based Predictions, so invest at your own risk.")
         
-        with portfolio_tab:
+        elif st.session_state.active_tab == 'portfolio':
             st.info("🟢 You are in the Portfolio Tracker tab.")
             try:
                 st.markdown("## 📊 Portfolio Management")
@@ -1853,7 +1855,7 @@ class StockTrendAI:
                 st.error(f"❌ Error in portfolio tab: {str(e)}")
             st.warning("⚠️ This is AI-based Predictions, so invest at your own risk.")
         
-        with analytics_tab:
+        elif st.session_state.active_tab == 'analytics':
             st.info("🟢 You are in the Advanced Analytics tab.")
             try:
                 st.markdown("## 📈 Advanced Analytics")
@@ -1885,7 +1887,7 @@ class StockTrendAI:
                 st.expander("🔧 Debug Info").write(f"Error details: {type(e).__name__}: {str(e)}")
             st.warning("⚠️ This is AI-based Predictions, so invest at your own risk.")
         
-        with news_tab:
+        elif st.session_state.active_tab == 'news':
             st.info("🟢 You are in the News & Sentiment tab.")
             try:
                 # Validate symbol before news analysis
@@ -1904,15 +1906,34 @@ class StockTrendAI:
                 st.markdown("- Try refreshing the page in a few moments")
             st.warning("⚠️ This is AI-based Predictions, so invest at your own risk.")
         
-        with tools_tab:
+        elif st.session_state.active_tab == 'tools':
             st.info("🟢 You are in the Advanced Tools tab.")
             try:
                 st.markdown("## ⚙️ Advanced Tools")
                 
-                # Add tabs for different sections
-                models_tab, analysis_tools_tab, utilities_tab = st.tabs(["🤖 AI Models Info", "📊 Analysis Tools", "🔧 Utilities"])
+                # Add sub-tabs for different sections with visible names
+                st.markdown("### 🔧 Tool Categories:")
                 
-                with models_tab:
+                # Initialize sub-tab state
+                if 'tools_subtab' not in st.session_state:
+                    st.session_state.tools_subtab = 'models'
+                
+                # Sub-tab buttons
+                subcol1, subcol2, subcol3 = st.columns(3)
+                with subcol1:
+                    if st.button("🤖 **AI MODELS INFO**", key="models_subtab", use_container_width=True):
+                        st.session_state.tools_subtab = 'models'
+                with subcol2:
+                    if st.button("📊 **ANALYSIS TOOLS**", key="analysis_subtab", use_container_width=True):
+                        st.session_state.tools_subtab = 'analysis'
+                with subcol3:
+                    if st.button("🔧 **UTILITIES**", key="utilities_subtab", use_container_width=True):
+                        st.session_state.tools_subtab = 'utilities'
+                
+                st.markdown(f"#### 🎯 Current Tool: **{st.session_state.tools_subtab.upper()}**")
+                st.markdown("---")
+                
+                if st.session_state.tools_subtab == 'models':
                     st.markdown("## 🤖 AI Models Information")
                     
                     # Model comparison table
@@ -1931,24 +1952,24 @@ class StockTrendAI:
                     with col2:
                         self.model_info.render_transformer_explanation()
                 
-                with analysis_tools_tab:
+                elif st.session_state.tools_subtab == 'analysis':
                     # Advanced features
                     tool_col1, tool_col2 = st.columns(2)
-                
-                with tool_col1:
-                    st.markdown("### 🔄 Data Export")
                     
-                    # Export current data
-                    if st.button("📥 Export Current Data"):
-                        stock_data = self.load_and_process_data(st.session_state.selected_stock, '1y')
-                        if stock_data is not None:
-                            csv = stock_data.to_csv()
-                            st.download_button(
-                                label="Download CSV",
-                                data=csv,
-                                file_name=f"{st.session_state.selected_stock}_data.csv",
-                                mime="text/csv"
-                            )
+                    with tool_col1:
+                        st.markdown("### 🔄 Data Export")
+                        
+                        # Export current data
+                        if st.button("📥 Export Current Data"):
+                            stock_data = self.load_and_process_data(st.session_state.selected_stock, '1y')
+                            if stock_data is not None:
+                                csv = stock_data.to_csv()
+                                st.download_button(
+                                    label="Download CSV",
+                                    data=csv,
+                                    file_name=f"{st.session_state.selected_stock}_data.csv",
+                                    mime="text/csv"
+                                )
                     
                     # Market comparison
                     st.markdown("### 📊 Market Comparison")
@@ -1994,7 +2015,7 @@ class StockTrendAI:
                     st.markdown("### 📈 Model Performance")
                     self.render_model_performance_metrics()
                 
-                with utilities_tab:
+                elif st.session_state.tools_subtab == 'utilities':
                     st.markdown("## 🔧 Utilities")
                     
                     util_col1, util_col2 = st.columns(2)
