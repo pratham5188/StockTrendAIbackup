@@ -1559,14 +1559,34 @@ class StockTrendAI:
         # Render header
         self.render_header()
         
-        # Main navigation tabs
-        predictions_tab, portfolio_tab, analytics_tab, news_tab, tools_tab = st.tabs([
+        # Main navigation tabs with explicit names
+        tab_names = [
             "🎯 Predictions", 
             "📊 Portfolio", 
             "📈 Analytics", 
             "📰 News & Sentiment", 
             "⚙️ Advanced Tools"
-        ])
+        ]
+        
+        st.markdown("### Navigation Tabs:")
+        st.write("Tab names should be:", tab_names)
+        
+        # Alternative tab display using buttons (fallback if tabs don't show names)
+        st.markdown("---")
+        col1, col2, col3, col4, col5 = st.columns(5)
+        with col1:
+            st.button("🎯 Predictions", key="tab_pred_btn", help="Predictions Tab")
+        with col2:
+            st.button("📊 Portfolio", key="tab_port_btn", help="Portfolio Tab") 
+        with col3:
+            st.button("📈 Analytics", key="tab_anal_btn", help="Analytics Tab")
+        with col4:
+            st.button("📰 News & Sentiment", key="tab_news_btn", help="News Tab")
+        with col5:
+            st.button("⚙️ Advanced Tools", key="tab_tools_btn", help="Tools Tab")
+        st.markdown("---")
+        
+        predictions_tab, portfolio_tab, analytics_tab, news_tab, tools_tab = st.tabs(tab_names)
         
         with predictions_tab:
             st.info("🟢 You are in the AI Predictions tab.")

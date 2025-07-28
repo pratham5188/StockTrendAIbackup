@@ -834,6 +834,25 @@ def get_custom_css():
         padding: 5px;
     }
     
+    /* Force tab names to be visible - Override any hiding CSS */
+    .stTabs [data-baseweb="tab-list"] button {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+    }
+    
+    .stTabs [data-baseweb="tab-list"] button * {
+        color: #ffffff !important;
+        font-size: 14px !important;
+        font-weight: 600 !important;
+        display: inline !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        text-indent: 0 !important;
+        overflow: visible !important;
+        white-space: nowrap !important;
+    }
+    
     .stTabs [data-baseweb="tab"] {
         height: 50px;
         background: rgba(0,0,0,0.5);
@@ -887,6 +906,36 @@ def get_custom_css():
         display: block !important;
         visibility: visible !important;
         opacity: 1 !important;
+    }
+
+    /* Ultra aggressive tab text visibility - Force show everything */
+    .stTabs button,
+    .stTabs button span,
+    .stTabs button div,
+    .stTabs button p,
+    .stTabs [role="tab"],
+    .stTabs [role="tab"] span,
+    .stTabs [role="tab"] div,
+    .stTabs [role="tab"] p {
+        color: #00ff88 !important;
+        background-color: transparent !important;
+        font-size: 16px !important;
+        font-weight: 700 !important;
+        text-shadow: 2px 2px 4px rgba(0,0,0,1) !important;
+        display: inline-block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        position: relative !important;
+        z-index: 999 !important;
+        text-decoration: none !important;
+        border: none !important;
+        outline: none !important;
+        min-height: 20px !important;
+        line-height: 1.2 !important;
+        padding: 8px 16px !important;
+        margin: 0 !important;
+        text-align: center !important;
+        vertical-align: middle !important;
     }
     
     /* Fix all Streamlit text colors */
